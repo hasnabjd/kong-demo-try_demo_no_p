@@ -1,0 +1,80 @@
+_format_version: "3.0"
+consumers:
+- tags:
+  - try_demo_no_p
+  username: jsmith
+- tags:
+  - try_demo_no_p
+  username: jdoe
+services:
+- host: api.kong-air.com
+  id: c89d5f47-9e4a-553a-910e-ff1a78bb3015
+  name: booking-service
+  path: /
+  plugins: []
+  port: 443
+  protocol: https
+  routes:
+  - id: f63684ac-f2a9-5c18-b9be-85bf70b3f1ae
+    methods:
+    - GET
+    name: booking-service_bookings_list-bookings
+    paths:
+    - ~/bookings$
+    plugins: []
+    regex_priority: 200
+    strip_path: false
+    tags:
+    - booking-service
+    - try_demo_no_p
+  - id: 21ca3544-a0a5-527f-9c0a-5c5387fa2532
+    methods:
+    - POST
+    name: booking-service_bookings_create-booking
+    paths:
+    - ~/bookings$
+    plugins: []
+    regex_priority: 200
+    strip_path: false
+    tags:
+    - booking-service
+    - try_demo_no_p
+  tags:
+  - booking-service
+  - try_demo_no_p
+- host: api.kong-air.com
+  id: a82ccb5e-2962-532e-93e9-7c72f74ad530
+  name: notification-service
+  path: /
+  plugins: []
+  port: 443
+  protocol: https
+  routes:
+  - id: c9d3c4d1-9a8d-5126-8630-7df969fbd517
+    methods:
+    - POST
+    name: notification-service_notifications-email_send-email-notification
+    paths:
+    - ~/notifications/email$
+    plugins: []
+    regex_priority: 200
+    strip_path: false
+    tags:
+    - notification-service
+    - try_demo_no_p
+  - id: f4621cda-b07a-5f81-a4f9-5eb4a72ff9b7
+    methods:
+    - POST
+    name: notification-service_notifications-sms_send-sms-notification
+    paths:
+    - ~/notifications/sms$
+    plugins: []
+    regex_priority: 200
+    strip_path: false
+    tags:
+    - notification-service
+    - try_demo_no_p
+  tags:
+  - notification-service
+  - try_demo_no_p
+upstreams: []
